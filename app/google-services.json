@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "295786899156",
+    "project_id": "movie-app-f492a",
+    "storage_bucket": "movie-app-f492a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:295786899156:android:bc159b44c41a49c1c6fd41",
+        "android_client_info": {
+          "package_name": "com.aaguamaninga.movie_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJoVc9vzwVqjmHohvdTBh7Ww9vg9hnrf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
