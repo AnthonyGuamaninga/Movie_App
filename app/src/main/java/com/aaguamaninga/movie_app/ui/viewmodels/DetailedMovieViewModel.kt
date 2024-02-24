@@ -3,24 +3,24 @@ package com.aaguamaninga.movie_app.ui.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaguamaninga.movie_app.data.network.entities.movie.ResultsMovies
-import com.aaguamaninga.movie_app.logic.usercases.movie.GetAllNowPlayingUsercase
+import com.aaguamaninga.movie_app.data.network.entities.movie.DetailedMovie
+import com.aaguamaninga.movie_app.logic.usercases.movie.GetDetailedMovieByIdUsercase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListNowPlayingViewModel : ViewModel() {
+class DetailedMovieViewModel : ViewModel(){
 
-    val listItems = MutableLiveData<List<ResultsMovies>>()
+    val MovieItem = MutableLiveData<DetailedMovie>()
     val error = MutableLiveData<String>()
 
-    fun getAllNowPlaying() {
+    fun loadDetailedMovie(movie_id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val userCase = GetAllNowPlayingUsercase()
-            val movieFlow = userCase.invoke()
+            val userCase = GetDetailedMovieByIdUsercase()
+            val movieFlow = userCase.invoke(movie_id) //
 
-            movieFlow.collect{ movie ->
+            movieFlow.collect{movie ->
                 movie.onSuccess {
-                    listItems.postValue(it.toList())
+                    MovieItem.postValue(it)
                 }
                 movie.onFailure {
                     error.postValue(it.message.toString())
@@ -29,4 +29,5 @@ class ListNowPlayingViewModel : ViewModel() {
 
         }
     }
+
 }

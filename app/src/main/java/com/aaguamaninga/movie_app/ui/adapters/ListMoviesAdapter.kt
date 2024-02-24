@@ -1,5 +1,6 @@
 package com.aaguamaninga.movie_app.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,23 +10,30 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aaguamaninga.movie_app.R
 import com.aaguamaninga.movie_app.core.Constant
-import com.aaguamaninga.movie_app.data.network.entities.movie.ResultMovie
+import com.aaguamaninga.movie_app.data.network.entities.movie.DetailedMovie
+import com.aaguamaninga.movie_app.data.network.entities.movie.ResultsMovies
 import com.aaguamaninga.movie_app.databinding.ItemsMovieBinding
 
-class MovieAdapter ():
-    ListAdapter<ResultMovie, MovieAdapter.MovieVH>(DiffUtilNobelCallback) {
+class MovieAdapter (
+    private var onSelectItem: (ResultsMovies) -> Unit
+):
+    ListAdapter<ResultsMovies, MovieAdapter.MovieVH>(DiffUtilMoviesCallback) {
 
-    var listNobel : List<ResultMovie> = emptyList()
+    var listMovies : List<ResultsMovies> = emptyList()
 
     class MovieVH(view: View): RecyclerView.ViewHolder(view){
 
         private var binding: ItemsMovieBinding = ItemsMovieBinding.bind(view)
 
-        fun render(item: ResultMovie) {
+        fun render(item: ResultsMovies, onSelectItem: (ResultsMovies) -> Unit) {
             binding.imgPoster.load(Constant.URL_IMG+item.poster_path)
             binding.circularProgress.maxProgress = 10.0
             binding.circularProgress.setCurrentProgress(item.vote_average)
 
+            //LISTENERS
+            binding.imgPoster.setOnClickListener({
+                onSelectItem(item)
+            })
         }
     }
 
@@ -35,16 +43,16 @@ class MovieAdapter ():
     }
 
     override fun onBindViewHolder(holder: MovieVH, position: Int) {
-        holder.render(getItem(position))
+        holder.render(getItem(position), onSelectItem)
     }
 }
 
-object DiffUtilNobelCallback : DiffUtil.ItemCallback<ResultMovie>(){
-    override fun areItemsTheSame(oldItem: ResultMovie, newItem: ResultMovie): Boolean {
+object DiffUtilMoviesCallback : DiffUtil.ItemCallback<ResultsMovies>(){
+    override fun areItemsTheSame(oldItem: ResultsMovies, newItem: ResultsMovies): Boolean {
         return (oldItem.release_date == newItem.release_date)
     }
 
-    override fun areContentsTheSame(oldItem: ResultMovie, newItem: ResultMovie): Boolean {
+    override fun areContentsTheSame(oldItem: ResultsMovies, newItem: ResultsMovies): Boolean {
         return (oldItem == newItem)
     }
 

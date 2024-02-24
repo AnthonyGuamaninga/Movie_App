@@ -26,5 +26,6 @@
     <string name="aceptar">Vamos allá</string>
     <string name="txt_dialog_login">Existen campos vacios que debe llenar</string>
     <string name="txt_dialog_register">Existen campos obligariorios que deben ser llenados</string>
+    <string name="movie_poster">Poster de la película</string>
 
 </resources>

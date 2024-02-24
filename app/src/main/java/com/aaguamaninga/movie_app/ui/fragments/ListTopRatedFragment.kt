@@ -1,6 +1,7 @@
 package com.aaguamaninga.movie_app.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,26 +9,28 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aaguamaninga.movie_app.R
 import com.aaguamaninga.movie_app.data.network.entities.movie.ResultsMovies
-import com.aaguamaninga.movie_app.databinding.FragmentListNowPlayingBinding
+import com.aaguamaninga.movie_app.databinding.FragmentListPopularsBinding
+import com.aaguamaninga.movie_app.databinding.FragmentListTopRatedBinding
 import com.aaguamaninga.movie_app.ui.adapters.MovieAdapter
-import com.aaguamaninga.movie_app.ui.viewmodels.ListNowPlayingViewModel
+import com.aaguamaninga.movie_app.ui.viewmodels.ListPopularsViewModel
+import com.aaguamaninga.movie_app.ui.viewmodels.ListTopRatedViewModel
 
+class ListTopRatedFragment : Fragment() {
 
-class ListNowPlayingFragment : Fragment() {
-
-    private lateinit var binding: FragmentListNowPlayingBinding
+    private lateinit var binding: FragmentListTopRatedBinding
     private val adapter = MovieAdapter({selectMovie(it)})
-    private val viewModel : ListNowPlayingViewModel by viewModels()
+    private val viewModel : ListTopRatedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            FragmentListNowPlayingBinding.bind(inflater.inflate(R.layout.fragment_list_now_playing, container, false))
         // Inflate the layout for this fragment
+        binding =
+            FragmentListTopRatedBinding.bind(inflater.inflate(R.layout.fragment_list_top_rated, container, false))
         return binding.root
     }
 
@@ -37,7 +40,7 @@ class ListNowPlayingFragment : Fragment() {
         initListeners()
         initObservers()
         initRecyclerView()
-        viewModel.getAllNowPlaying()
+        viewModel.getAllTopRated()
 
     }
 
@@ -56,7 +59,9 @@ class ListNowPlayingFragment : Fragment() {
 
     private fun initRecyclerView(){
         binding.rvUsers.adapter = adapter
-        binding.rvUsers.layoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.rvUsers.layoutManager = GridLayoutManager(
+            requireActivity(), 1, RecyclerView.VERTICAL, false)
+
     }
 
     private fun initListeners(){
@@ -67,12 +72,12 @@ class ListNowPlayingFragment : Fragment() {
     }
 
     private fun selectMovie(movie: ResultsMovies){
+        Log.d("TAG", movie.id.toString())
         findNavController()
             .navigate(
-                ListNowPlayingFragmentDirections
-                    .actionListNowPlayingFragmentToDetailedMovieFragment(movieId = movie.id)
+                ListTopRatedFragmentDirections
+                    .actionListTopRatedFragmentToDetailedMovieFragment(movieId = movie.id)
             )
     }
-
 
 }

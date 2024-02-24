@@ -10,13 +10,14 @@ import com.aaguamaninga.movie_app.R
 import com.aaguamaninga.movie_app.databinding.ActivityMainBinding
 import com.aaguamaninga.movie_app.ui.adapters.MovieAdapter
 import com.aaguamaninga.movie_app.ui.fragments.ListNowPlayingFragment
+import com.aaguamaninga.movie_app.ui.fragments.ListPopularsFragment
+import com.aaguamaninga.movie_app.ui.fragments.ListTopRatedFragment
+import com.aaguamaninga.movie_app.ui.fragments.ListUpcomingFragment
 import com.aaguamaninga.movie_app.ui.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val adapter = MovieAdapter()
-    private val viewModel : MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +39,24 @@ class MainActivity : AppCompatActivity() {
                     transaction.commit()
                     true
                 }
-                /*
                 R.id.it_popular -> {
                     val transaction = manager.beginTransaction()
-                    transaction.replace(binding.frmContainer.id, FavoriteFragment())
+                    transaction.replace(binding.frmContainer.id, ListPopularsFragment())
                     transaction.commit()
                     true
-                }*/
+                }
+                R.id.it_rated -> {
+                    val transaction = manager.beginTransaction()
+                    transaction.replace(binding.frmContainer.id, ListTopRatedFragment())
+                    transaction.commit()
+                    true
+                }
+                R.id.it_upcoming -> {
+                    val transaction = manager.beginTransaction()
+                    transaction.replace(binding.frmContainer.id, ListUpcomingFragment())
+                    transaction.commit()
+                    true
+                }
                 else -> {
                     false
                 }

@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
         android:orientation="vertical"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,12 +18,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imgPoster"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="center"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +43,7 @@
                 app:progressBackgroundColor="@color/transp_white"
                 app:dotWidth="6dp"
                 app:progressStrokeWidth="3dp"
-                app:progressColor="@color/light_green"
+                app:progressColor="@color/dark_green"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

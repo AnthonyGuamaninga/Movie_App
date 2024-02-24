@@ -3,19 +3,20 @@ package com.aaguamaninga.movie_app.logic.usercases.movie
 import android.util.Log
 import com.aaguamaninga.movie_app.core.Constant
 import com.aaguamaninga.movie_app.data.network.endpoints.movie.NowPlayingEndpoint
+import com.aaguamaninga.movie_app.data.network.endpoints.movie.PopularsEndpoint
+import com.aaguamaninga.movie_app.data.network.endpoints.movie.TopRatedEndpoint
 import com.aaguamaninga.movie_app.data.network.entities.movie.ResultsMovies
 import com.aaguamaninga.movie_app.data.network.repository.RetrofitBase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetAllNowPlayingUsercase {
-
+class GetAllTopRatedUsercase {
     suspend fun invoke(): Flow<Result<List<ResultsMovies>>> = flow {
         var result: Result<List<ResultsMovies>>? = null
 
         val baseService = RetrofitBase.getRetrofitTmdbConnection()
-        val service = baseService.create(NowPlayingEndpoint::class.java)
-        val call = service.getAllNowPlaying(Constant.API_KEY)
+        val service = baseService.create(TopRatedEndpoint::class.java)
+        val call = service.getAllTopRated(Constant.API_KEY)
         try {
             if (call.isSuccessful) {
                 val a = call.body()!!
@@ -33,4 +34,3 @@ class GetAllNowPlayingUsercase {
         emit(result!!)
     }
 }
-

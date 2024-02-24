@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="transp_white">#CCFFFFFF</color>
+    <color name="transp_black">#CC000000</color>
     <color name="red_dark">#540b0e</color>
     <color name="purple">#73146b</color>
     <color name="gray_dark">#303942</color>

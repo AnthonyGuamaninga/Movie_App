@@ -4,21 +4,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaguamaninga.movie_app.data.network.entities.movie.ResultsMovies
-import com.aaguamaninga.movie_app.logic.usercases.movie.GetAllNowPlayingUsercase
+import com.aaguamaninga.movie_app.logic.usercases.movie.GetAllPopularsUsercase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListNowPlayingViewModel : ViewModel() {
+class ListPopularsViewModel : ViewModel() {
 
     val listItems = MutableLiveData<List<ResultsMovies>>()
     val error = MutableLiveData<String>()
 
-    fun getAllNowPlaying() {
+    fun getAllPopulars() {
         viewModelScope.launch(Dispatchers.IO) {
-            val userCase = GetAllNowPlayingUsercase()
-            val movieFlow = userCase.invoke()
+            val userCase = GetAllPopularsUsercase()
+            val moviesFlows = userCase.invoke()
 
-            movieFlow.collect{ movie ->
+            moviesFlows.collect{ movie ->
                 movie.onSuccess {
                     listItems.postValue(it.toList())
                 }
